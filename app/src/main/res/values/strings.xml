@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">UserForm</string>
+    <string-array name="bp">
+        <item>HIGH</item>
+        <item>LOW</item>
+    </string-array>
+    <string-array name="yn">
+        <item>YES</item>
+        <item>NO</item>
+    </string-array>
+</resources>
