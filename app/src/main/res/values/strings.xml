@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">UserForm</string>
     <string-array name="bp">
+        <item>Choose Category</item>
         <item>HIGH</item>
         <item>LOW</item>
     </string-array>
     <string-array name="yn">
+        <item>Choose Category</item>
         <item>YES</item>
         <item>NO</item>
     </string-array>

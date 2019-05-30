@@ -1,6 +1,8 @@
 package com.example.userform;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         databaseReference = firebaseDatabase.getReference("users");
 
+        s1=s2=s3=null;
+
 
         user = new User();
 
@@ -83,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         e6=findViewById(R.id.disease);
 
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinn);
+        final Spinner spinner = (Spinner) findViewById(R.id.spinn);
         Spinner spinner2 = (Spinner) findViewById(R.id.spint);
         Spinner spinner1 = (Spinner) findViewById(R.id.spining);
 
@@ -97,17 +101,30 @@ public class MainActivity extends AppCompatActivity {
 
                 if(position==0)
                 {
+                    button.setBackgroundColor(Color.LTGRAY);
+                    button.setEnabled(false);
+
+                    //button.setBackgroundColor(getResources().getColor(R.color.mycolor));
+
+                }
+                else if(position==1)
+                {
                     s1="HIGH";
+                    button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    button.setEnabled(true);
                 }
                 else
                 {
                     s1="LOW";
+                    button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    button.setEnabled(true);
                 }
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
 
             }
         });
@@ -119,20 +136,21 @@ public class MainActivity extends AppCompatActivity {
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position==0)
-                {
-                    s2="YES";
-                }
-                else
-                {
-                    s2="NO";
-                }
+                if (position == 0) {
+                    button.setBackgroundColor(Color.LTGRAY);
+                    button.setEnabled(false);
 
+
+                } else if (position == 1) {
+                    s2 = "YES";
+
+                } else {
+                    s2 = "NO";
+                }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                e6.setError("Please select an option");
             }
         });
 
@@ -145,12 +163,18 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (position) {
                     case 0:
+                        s3="Choose Category";
+                        break;
+                    case 1:
                         linearLayout.setVisibility(View.VISIBLE);
                         s3="YES";
+                      break;
+                    case 2:
+                        s3="NO";
                         break;
 
                     default:
-                        s3="NO";
+                        s3="Choose Category";
                         break;
 
                 }
@@ -238,11 +262,30 @@ public class MainActivity extends AppCompatActivity {
         } else {
             e1.setError(null);
         }
+        final int t = Integer.valueOf(e1.getText().toString());
+        if (t< 100 || t > 200)
+        {
+            e1.setError("Invalid input");
+        }
+        else {
+                e1.setError(null);
+            }
         if (TextUtils.isEmpty(e2.getText().toString())) {
             e2.setError("Required");
             result = false;
-        } else {
+        }
+        else
+            {
             e2.setError(null);
+        }
+        final int w = Integer.valueOf(e2.getText().toString());
+        if (w < 40 || w > 150)
+        {
+            e1.setError("Invalid input");
+        }
+        else
+            {
+                e1.setError(null);
         }
         if (TextUtils.isEmpty(e3.getText().toString())) {
             e3.setError("Required");
@@ -268,7 +311,15 @@ public class MainActivity extends AppCompatActivity {
         } else {
             e6.setError(null);
         }
-        return result;
-    }
 
-}
+        if(e1.getText().toString().isEmpty()&& e2.getText().toString().isEmpty()&& e3.getText().toString().isEmpty()&& e4.getText().toString().isEmpty()&& e5.getText().toString().isEmpty()&& e6.getText().toString().isEmpty()&& s1.isEmpty()&& s2.isEmpty()&& s3.isEmpty())
+        {
+            Toast.makeText(this, "You did not enter a value!", Toast.LENGTH_LONG).show();
+            result=false;
+        }
+        else {
+            button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            button.setEnabled(true);
+        }
+        return result;
+}}
