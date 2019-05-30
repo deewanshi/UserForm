@@ -30,6 +30,8 @@ public class User {
         this.disease = disease;
     }
 
+
+
     public String getNem() {
         return nem;
     }
